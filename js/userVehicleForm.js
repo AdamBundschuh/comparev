@@ -7,12 +7,12 @@ import { displaySingleEV } from "./single-vehicle.js";
 
 
 
-fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/states")
+fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/states")
     .then(response => response.json())
     .then(states => genStates(states))
     .catch(error => console.log(error))
 
-fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years")
+fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years")
     .then(response => response.json())
     .then(years => genYears(years))
     .catch(error => console.log(error))
@@ -54,7 +54,7 @@ submitButton.addEventListener("click", () => {
     const userMakeId = makeSelectElement.getElementsByClassName("make-option")[userMakeIndex].getAttribute("id")
     const userModelId = modelSelectElement.getElementsByClassName("model-option")[userModelIndex].getAttribute("id")
 
-    fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/userVehicle/" + userStateId, {
+    fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/userVehicle/" + userStateId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,8 +64,8 @@ submitButton.addEventListener("click", () => {
         .then(userState => userStateObj = userState)
         .catch(error => console.log(error))
 
-    // http://localhost:8080/api/ice/userVehicle/{year}/{make}/{model}
-    fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/userVehicle/" + userYearId + "/" + userMakeId + "/" + userModelId, {
+    // https://localhost:8080/api/ice/userVehicle/{year}/{make}/{model}
+    fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/userVehicle/" + userYearId + "/" + userMakeId + "/" + userModelId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ const genYears = function (years) {
         clearChildren(makeSelectElement)
         clearChildren(modelSelectElement)
 
-        fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years/" + yearSelectElement.value, {
+        fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years/" + yearSelectElement.value, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -150,8 +150,8 @@ const genMakes = function (makes) {
     makeSelectElement.addEventListener("change", () => {
 
         let userMake = makeSelectElement.value
-        // http://localhost:8080/api/ice/years/2012/ford
-        fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years/" + yearSelectElement.value + "/" + userMake.toLowerCase(), {
+        // https://localhost:8080/api/ice/years/2012/ford
+        fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ice/years/" + yearSelectElement.value + "/" + userMake.toLowerCase(), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -250,9 +250,9 @@ const genUserVehicleComp = function (userVehicle, userStateObj) {
 
 const genEVComparison = function (priceRange, userVehicle, userStateObj, weeklyMiles) {
 
-    console.log("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ev/charge/" + stateSelectElement.value)
+    console.log("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ev/charge/" + stateSelectElement.value)
 
-    fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ev/charge/" + stateSelectElement.value, {
+    fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/ev/charge/" + stateSelectElement.value, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -263,7 +263,7 @@ const genEVComparison = function (priceRange, userVehicle, userStateObj, weeklyM
         .catch(error => console.log(error))
 
 
-    fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/electricVehicles/compare/" + priceRange, {
+    fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/electricVehicles/compare/" + priceRange, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -471,7 +471,7 @@ const displayComparedEV = function (ElectricVehicle,allEVs, userVehicle, userSta
     body.append(mainElement);
     const carImage = document.createElement("div");
     carImage.classList.add("car-image");
-    // carImage.style.backgroundImage = 'url("http://127.0.0.1:5500/frontend-spa/images/JDPA_2020%20Hyundai%20Kona%20Ultimate%20White%20Front%20View.webp")';
+    // carImage.style.backgroundImage = 'url("https://127.0.0.1:5500/frontend-spa/images/JDPA_2020%20Hyundai%20Kona%20Ultimate%20White%20Front%20View.webp")';
     carImage.style.backgroundImage = 'url("' + ElectricVehicle.imageUrl + '")';
     carImage.style.color = 'rgb(255,255,255)';
     carImage.style.height = '100vh';
@@ -747,7 +747,7 @@ const displayComparedEV = function (ElectricVehicle,allEVs, userVehicle, userSta
         if (reviewCommentInput.value !== "") {
             const json = JSON.stringify(reviewCommentInput.value);
             const unqoutedJson = json.replace(/\"/g, "");
-            fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/electricVehicles/" + ElectricVehicle.id + "/comments", {
+            fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/electricVehicles/" + ElectricVehicle.id + "/comments", {
                     method: "PATCH",
                     headers: {
                         'Content-Type': 'application/json'
@@ -769,7 +769,7 @@ const displayComparedEV = function (ElectricVehicle,allEVs, userVehicle, userSta
 
 }
 
-fetch("http://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/articles")
+fetch("https://comparevbootdeploy-env.eba-2vdvg3f3.us-east-2.elasticbeanstalk.com/api/articles")
     .then(response => response.json())
     .then(articles => indexArticles(articles))
     .catch(error => console.log(error))
